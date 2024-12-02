@@ -1,37 +1,37 @@
-# Advent Of Code 2024, self-torment edition
+# Advent of Code 2024, self-torment edition
 
-I have decided that for every puzzle the wheel will decide what language my solution
-will be written in. The possible list of languages is: 
+For every puzzle the wheel has decided what language my solution
+would be written in. The list of possible languages was: 
 
-- D
-- Common lisp
-- C3
-- Ruby
-- Scratch
-- PHP
-- Shell/Bash
-- ocaml
-- Pascal
-- Fortran
-- Zig
-- Swift
-- Uiua
-- Rust
-- Ada
-- Go
-- V
-- Kotlin
-- F#
-- Clojure
-- Elixir
-- Javascript
-- Perl
-- Risc-V Assembly
-- COBOL
-- Objective-C
-- Haskell
-- Brainfuck
-- Erlang
+- [ ] D
+- [ ] Common lisp
+- [ ] C3
+- [ ] Ruby
+- [ ] Scratch
+- [ ] PHP
+- [ ] Shell/Bash
+- [ ] ocaml
+- [ ] Pascal
+- [ ] Fortran
+- [ ] Zig
+- [ ] Swift
+- [ ] Uiua
+- [x] Rust
+- [ ] Ada
+- [ ] Go
+- [ ] V
+- [ ] Kotlin
+- [ ] F#
+- [ ] Clojure
+- [ ] Elixir
+- [ ] Javascript
+- [ ] Perl
+- [x] Risc-V Assembly
+- [x] COBOL
+- [ ] Objective-C
+- [ ] Haskell
+- [ ] Brainfuck
+- [ ] Erlang
 
 ## Day 1: Historian Hysteria
 
@@ -45,3 +45,7 @@ the COBOL knowledge needed to write day 1. Writing day 1 took about 3 hours.
 Rust, a sane language. I already have a lot of experience writing in Rust so this day
 would be easy, *he said, not knowing what awaited him*. This was pretty easy, but
 part 2 required some renovations.
+
+## Day 3: ????
+
+RISC-V Assembly
