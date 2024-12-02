@@ -1,1 +1,1 @@
-cobc -x main.cbl && ./main
+cobc -x main.cbl && ./main && cobc -x part2.cbl && ./part2
