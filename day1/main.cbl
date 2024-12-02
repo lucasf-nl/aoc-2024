@@ -1,37 +1,34 @@
 IDENTIFICATION DIVISION.
 PROGRAM-ID. Day1.
 
+ENVIRONMENT DIVISION.
+    INPUT-OUTPUT SECTION.
+    FILE-CONTROL.
+        SELECT inputFile ASSIGN TO 'input.txt'
+            ORGANIZATION IS LINE SEQUENTIAL.
+
 DATA DIVISION.
+FILE SECTION.
+FD  inputFile.
+01  inputFileRecord PIC X(100).
+
 WORKING-STORAGE SECTION.
-01 COL-1 OCCURS 6 TIMES PIC X(1).
-01 COL-2 OCCURS 6 TIMES PIC X(1).
-*> 01 GRID OCCURS 6 TIMES.
-*>      05 COL-1 PIC X(1).
-*>      05 COL-2 PIC X(1).
-77 WS-ROW PIC 9 VALUE 0.
-77 WS-COLUMN PIC 9 VALUE 0.
-01 num BINARY-LONG.
-01 i BINARY-LONG.
-01 tot BINARY-LONG VALUE 0.
-77 TEMP-COL-1 PIC 9.
-77 TEMP-COL-2 PIC 9.
-77 WS-I PIC 9 VALUE 0.
-77 WS-J PIC 9 VALUE 0.
+01 indexCounter PIC 9(4) VALUE 0.
+01 COL-1 OCCURS 1000 TIMES PIC X(5).
+01 COL-2 OCCURS 1000 TIMES PIC X(5).
+01 EOF PIC X VALUE 'N'.
+77 WS-ROW PIC 9(5) VALUE 0.
+77 WS-COLUMN PIC 9(5) VALUE 0.
 77 CALCTMP BINARY-LONG.
 77 CALCTMP2 BINARY-LONG.
 77 TOTAL BINARY-LONG VALUE 0.
+01 trash PIC X(10).
+01 splitArray PIC X(100) OCCURS 10 TIMES INDEXED BY idx.
 
 PROCEDURE DIVISION.
     MAIN-PROGRAM.
         DISPLAY "Hello World!".
-        ACCEPT num.
 
-        PERFORM VARYING i FROM 1 BY 1 UNTIL I > num
-            ADD i TO tot
-            DISPLAY "Adding " i " to the total resulted in " tot
-        END-PERFORM
-
-        DISPLAY "The sum is " tot.
         PERFORM INITIALIZE-GRID.
         PERFORM DISPLAY-GRID.
 
@@ -45,26 +42,41 @@ PROCEDURE DIVISION.
         STOP RUN.
 
     INITIALIZE-GRID.
-        MOVE 3 TO COL-1(1) MOVE 4 TO COL-2(1)
-        MOVE 4 TO COL-1(2) MOVE 3 TO COL-2(2)
-        MOVE 2 TO COL-1(3) MOVE 5 TO COL-2(3)
-        MOVE 1 TO COL-1(4) MOVE 3 TO COL-2(4)
-        MOVE 3 TO COL-1(5) MOVE 9 TO COL-2(5)
-        MOVE 3 TO COL-1(6) MOVE 3 TO COL-2(6).
+        OPEN INPUT inputFile
+
+        PERFORM UNTIL EOF = "Y"
+            READ inputFile INTO inputFileRecord
+                AT END
+                    SET EOF TO "Y"
+                NOT AT END
+                    ADD 1 TO indexCounter
+                    DISPLAY "Processing Line " indexCounter ": " inputFileRecord
+
+                    UNSTRING inputFileRecord DELIMITED BY SPACE
+                        INTO COL-1(indexCounter),
+                             trash,
+                             trash,
+                             COL-2(indexCounter)
+                    END-UNSTRING
+
+            END-READ
+        END-PERFORM
+
+        CLOSE inputFile.
 
     CALCULATE_DISTANCES.
-        PERFORM VARYING WS-ROW FROM 1 BY 1 UNTIL WS-ROW > 6
+        PERFORM VARYING WS-ROW FROM 1 BY 1 UNTIL WS-ROW > 1000
             MOVE COL-1(WS-ROW) TO CALCTMP
             MOVE COL-2(WS-ROW) TO CALCTMP2
             DISPLAY "Subtracting " CALCTMP2 " from " CALCTMP
             SUBTRACT CALCTMP2 FROM CALCTMP
+            MOVE FUNCTION ABS(CALCTMP) TO CALCTMP
             DISPLAY "Adding " CALCTMP " to " TOTAL
             ADD CALCTMP TO TOTAL
         END-PERFORM
         DISPLAY "Total " TOTAL.
 
     DISPLAY-GRID.
-        PERFORM VARYING WS-ROW FROM 1 BY 1 UNTIL WS-ROW > 6
+        PERFORM VARYING WS-ROW FROM 1 BY 1 UNTIL WS-ROW > 1000
             DISPLAY "Row " WS-ROW ": " COL-1(WS-ROW) ", " COL-2(WS-ROW)
-            DISPLAY ""  *> Move to the next line
         END-PERFORM.
