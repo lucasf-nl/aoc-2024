@@ -39,11 +39,10 @@ loopFoundM:
     # load character and comparison value (u)
     lb t1, 0(a2)
     lb t3, charu
-    beq t1, t3, loopFoundU
+    bne t1, t3, loop # stop if it's not a u
 
-    j loop # wasn't actually a mul
+# u
 
-loopFoundU:
     # next character
     li t1, 1
     add a2, a2, t1
@@ -51,11 +50,10 @@ loopFoundU:
     # load character and comparison value (l)
     lb t1, 0(a2)
     lb t3, charl
-    beq t1, t3, loopFoundL
+    bne t1, t3, loop # stop if it's not an l
 
-    j loop # wasn't actually a mul
+# l
 
-loopFoundL:
     # next character
     li t1, 1
     add a2, a2, t1
@@ -63,17 +61,15 @@ loopFoundL:
     # load character and comparison value (opening backet)
     lb t1, 0(a2)
     lb t3, charO
-    beq t1, t3, loopFound_O_
-
-    j loop # wasn't actually a mul
+    bne t1, t3, loop # stop if it's not an opening bracket
 
 # (opening bracket)
-loopFound_O_:
+
     # next character
     li t1, 1
     add a2, a2, t1
 
-    # so now this gets complicated, first just see if there is even a number here
+    # parse the first number
     jal parseMulticharInt
     # fail if it was not actually a number
     li t1, -1
