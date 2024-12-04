@@ -8,18 +8,31 @@ charl:      .string         "l"
 charO:      .string         "("
 charC:      .string         ")"
 charCO:     .string         ","
+chard:      .string         "d"
+charo:      .string         "o"
+charn:      .string         "n"
+charA:      .string         "'"
+chart:      .string         "t"
 
 # a2 is just the string pointer now i guess. this is my first time writing any assembly
 # s0 is the first num in the mul, s1 is the second num in the mul, s2 is the total
+# s3 is 0 when we should just continue parsing and not wait until a do()
 
 .text
     li s2, 0
+    li s3, 0
     la a2, input
 
 loop:
     # check if the string has ended
     lb t1, 0(a2)
     beqz t1, exit
+
+    lb t3, chard
+    beq t1, t3, loopFoundD
+
+    # s3 is set to 1 when it should wait until a do, so this branches off to loopContinue
+    bnez s3, loopContinue
 
     lb t3, charm
     beq t1, t3, loopFoundM
@@ -30,6 +43,93 @@ loopContinue:
     add a2, a2, t1
 
     j loop # go again
+
+loopFoundD:
+    # possible do or don't statement
+    # next char
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value (o)
+    lb t1, 0(a2)
+    lb t3, charo
+    bne t1, t3, loop # not a o, repeat
+
+    # now branch to loopFoundDO if there is a opening bracket
+    # don't will still be handled here
+
+    # next char
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value (opening bracket)
+    lb t1, 0(a2)
+    lb t3, charO
+    beq t1, t3, loopFoundDO # go to loopFoundDO if there is an opening bracket, stay if there isn't
+
+    # now check if this current character is actually a n
+    lb t3, charn
+    bne t1, t3, loop # go back if it's not
+
+    # next char
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value (')
+    lb t1, 0(a2)
+    lb t3, charA
+    bne t1, t3, loop # go back if it's not
+
+    # next char
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value (t)
+    lb t1, 0(a2)
+    lb t3, chart
+    bne t1, t3, loop # go back if it's not
+
+    # now it's confirmed to say "don't", just the brackets left
+    # next character
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value (opening bracket)
+    lb t1, 0(a2)
+    lb t3, charO
+    bne t1, t3, loop # go back if it's not
+
+    # next character
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value (closing bracket)
+    lb t1, 0(a2)
+    lb t3, charC
+    bne t1, t3, loop # go back if it's not
+
+    # it's confirmed to say "don't()", now update s3 to block mul's
+    li s3, 1
+
+    # jump back
+    j loop
+
+loopFoundDO:
+    # now check for a closing bracket, if found this is a valid DO statement
+    # next char
+    li t1, 1
+    add a2, a2, t1
+
+    # load character and comparison value
+    lb t1, 0(a2)
+    lb t3, charC
+    bne t1, t3, loop # back to parse loop
+
+    # set s3 to allow
+    li s3, 0
+
+    # jump back
+    j loop
 
 loopFoundM:
     # next character

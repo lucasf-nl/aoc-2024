@@ -24,7 +24,7 @@ would be written in. The list of possible languages was:
 - [ ] F#
 - [ ] Clojure
 - [ ] Elixir
-- [ ] Javascript
+- [x] Javascript
 - [ ] Perl
 - [x] Risc-V Assembly
 - [x] COBOL
@@ -46,6 +46,12 @@ Rust, a sane language. I already have a lot of experience writing in Rust so thi
 would be easy, *he said, not knowing what awaited him*. This was pretty easy, but
 part 2 required some renovations.
 
-## Day 3: ????
+## Day 3: Mull It Over
 
-RISC-V Assembly
+RISC-V Assembly. I had never written anything in any assembly language before, because of this
+writing this day took about 7 hours. The [Project F](https://projectf.io) blog posts and RISC-V
+standard help me write this in the relatively short time.
+
+## Day 4: Ceres Search
+
+Javascript, easy but slow.
