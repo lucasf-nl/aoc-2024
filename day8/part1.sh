@@ -1,0 +1,1 @@
+sbcl --load part1.lisp

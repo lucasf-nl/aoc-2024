@@ -1,0 +1,2 @@
+brew packages: clisp sbcl
+get rid of ~/.sbclrc and all of [quicklisp](https://www.quicklisp.org/beta/)
