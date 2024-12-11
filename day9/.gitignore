@@ -1,0 +1,11 @@
+_build
+part1
+.part1.sh.kate-swp
+example.dat
+part1.cmi
+part1.cmo
+part1.cmx
+part1.o
+input.txt
+.vscode
+part1
