@@ -9,15 +9,12 @@ let split_and_print input_string delimiter buf =
   (* Split the string using the provided delimiter *)
   let splitted_array = Str.split (Str.regexp delimiter) input_string |> Array.of_list in
   (* Print each element of the array *)
-  (*Array.iter print_endline splitted_array*)
   Array.iter (fun element ->
     let charseq = String.to_seq element in
     match Seq.uncons charseq with
       | Some(c, _) -> Buffer.add_char buf c
       | None -> Printf.printf "):";
     
-    (*let char = Seq.take 1 charseq in
-    Buffer.add_char buf char*)
   ) splitted_array
 
 let process_buffer buffer newbuf =
@@ -81,15 +78,9 @@ let defrag newbuf =
 
     let cond = ref true in
     while !cond == true do
-      (* print_endline "another try"; *)
-      (* log_newbuf newbuf; *)
-
       let nlen = BatDynArray.length newbuf in
       let lchari = nlen -1 in
       let lchar = BatDynArray.get newbuf lchari in
-
-      (* print_endline "";
-      print_int lchar; *)
 
       (* find the first empty spot *)
       let predicament v = v == -1 in
@@ -98,18 +89,8 @@ let defrag newbuf =
       BatDynArray.upd newbuf fesi lcharf;
       BatDynArray.delete_last newbuf;
 
-      (* print_endline "";
-      log_newbuf newbuf; *)
-
       let condnew = space_left newbuf in
       cond := condnew;
-
-      (* if condnew == true then
-        print_endline "another loop"
-      else
-        print_endline "should end" *)
-
-      (* print_string "UwU" *)
     done
 
 let checksum dynarr: int =
@@ -123,47 +104,20 @@ let checksum dynarr: int =
   !sum
 
 let () =
-  (*let input = "hello,world,how,are,you" in
-  let delimiter = "" in
-  split_and_print input delimiter;*)
-
-  (* Read file and display the first line *)
   let ic = open_in file in
   let ibuf = Buffer.create 16 in
   let newbuf = BatDynArray.create () in
-  (* try *)
-    let line = input_line ic in
-    (* read line, discard \n *)
-    (* print_endline line; *)
 
-    let delimiter = "" in
-    split_and_print line delimiter ibuf;
+  let line = input_line ic in
 
-    process_buffer ibuf newbuf;
+  let delimiter = "" in
+  split_and_print line delimiter ibuf;
 
-    (* let r = space_left newbuf in
-    if r == true then
-      print_string "wee\n"
-    else
-      print_string "woo\n"; *)
+  process_buffer ibuf newbuf;
 
-    (* log_newbuf newbuf; *)
-    defrag newbuf;
-    checksum newbuf;
+  defrag newbuf;
+  checksum newbuf;
 
-    (* write the result to stdout *)
-    (* flush stdout; *)
-    (* write on the underlying device now *)
-    close_in ic
-    (* close the input channel *)
-  (* with e ->
-    (* some unexpected exception occurs *)
-    close_in_noerr ic;
-    (* emergency closing *)
-    raise e *)
-
-(* exit with error: files are closed but channels are not flushed *)
-
-(* normal exit: all channels are flushed and closed *)
+  close_in ic
 
 (* this implementation worked first try! (: *)
