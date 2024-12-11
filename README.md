@@ -4,13 +4,13 @@ For every puzzle the wheel has decided what language my solution
 would be written in. The list of possible languages was: 
 
 - [ ] D
-- [ ] Common lisp
-- [ ] C3
+- [x] Common lisp
+- [x] C3
 - [ ] Ruby
 - [ ] Scratch
-- [ ] PHP
+- [x] PHP
 - [ ] Shell/Bash
-- [ ] ocaml
+- [x] ocaml
 - [ ] Pascal
 - [ ] Fortran
 - [ ] Zig
@@ -28,7 +28,7 @@ would be written in. The list of possible languages was:
 - [ ] Perl
 - [x] Risc-V Assembly
 - [x] COBOL
-- [ ] Objective-C
+- [x] Objective-C
 - [ ] Haskell
 - [ ] Brainfuck
 - [ ] Erlang
