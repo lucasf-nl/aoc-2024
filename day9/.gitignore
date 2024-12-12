@@ -9,3 +9,8 @@ part1.o
 input.txt
 .vscode
 part1
+part2
+part2.cmi
+part2.cmo
+part2.cmx
+part2.o
