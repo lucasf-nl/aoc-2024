@@ -1,14 +1,11 @@
+mod part2;
+
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 
-// 24 for part 1, 74 for part 2
-const NUMBER_OF_ADDITIONAL_ITERATIONS: u8 = 74;
-
-// This puzzle sucks. RAM should not be the limiting factor.
-
 fn main() {
-    let path = Path::new("./input.txt");
+    let path = Path::new("./test.txt");
     let mut file = File::open(path).unwrap();
     let mut input = String::new();
     file.read_to_string(&mut input).unwrap();
@@ -23,15 +20,17 @@ fn main() {
 
     println!("{:?}", input);
 
-    let mut value = blink(&input);
+    let value = part2::part2(&input);
 
-    // did it once already, x - 1 more times to go
-    for iteration in 0..NUMBER_OF_ADDITIONAL_ITERATIONS {
-        println!("Iteration: {}/{}", iteration + 1, NUMBER_OF_ADDITIONAL_ITERATIONS);
-        value = blink(&value);
-    }
+    // let mut value = blink(&input);
+    //
+    // // did it once already, x - 1 more times to go
+    // for iteration in 0..24 {
+    //     println!("Iteration: {}/{}", iteration + 1, 24);
+    //     value = blink(&value);
+    // }
 
-    println!("Stones: {}", value.len());
+    println!("Stones: {}", value);
 }
 
 fn blink(input: &Vec<usize>) -> Vec<usize> {
@@ -42,12 +41,7 @@ fn blink(input: &Vec<usize>) -> Vec<usize> {
 
         if v == 0 {
             out.push(1);
-        } else  {
-            if v == 0 {
-                out.push(0);
-                out.push(0);
-            }
-
+        } else {
             let digits = (v as f64).log10().floor() as usize + 1;
 
             if digits % 2 == 0 {
