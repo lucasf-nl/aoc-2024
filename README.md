@@ -16,7 +16,7 @@ would be written in. The list of possible languages was:
 - [ ] Zig
 - [ ] Swift
 - [ ] Uiua
-- [x] Rust
+- [x] Rust (was chosen twice)
 - [ ] Ada
 - [ ] Go
 - [ ] V
@@ -29,7 +29,7 @@ would be written in. The list of possible languages was:
 - [x] Risc-V Assembly
 - [x] COBOL
 - [x] Objective-C
-- [ ] Haskell
+- [x] Haskell
 - [ ] Brainfuck
 - [ ] Erlang
 
