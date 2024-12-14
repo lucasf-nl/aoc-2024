@@ -5,7 +5,7 @@ use std::io::Read;
 use std::path::Path;
 
 fn main() {
-    let path = Path::new("./test.txt");
+    let path = Path::new("./input.txt");
     let mut file = File::open(path).unwrap();
     let mut input = String::new();
     file.read_to_string(&mut input).unwrap();
@@ -21,14 +21,6 @@ fn main() {
     println!("{:?}", input);
 
     let value = part2::part2(&input);
-
-    // let mut value = blink(&input);
-    //
-    // // did it once already, x - 1 more times to go
-    // for iteration in 0..24 {
-    //     println!("Iteration: {}/{}", iteration + 1, 24);
-    //     value = blink(&value);
-    // }
 
     println!("Stones: {}", value);
 }
